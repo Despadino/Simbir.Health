@@ -1,19 +1,52 @@
 # Simbir.Health
 
-Весь проект запускается с помощью команды make или make all
+Проект Simbir.Health представляет собой набор микросервисов для управления медицинскими данными. Весь проект собирается и запускается с помощью команды `make` или `make all`.
 
+---
 
-account-microservice
-http://127.0.0.1:8081/account-microservice/docs#
+## Настройка окружения
 
+Перед запуском проекта необходимо настроить переменные окружения в файле `.env`. Пример файла `.env`:
 
-hospitals-microservice
-http://127.0.0.1:8082/hospitals-microservice/docs#
+- `POSTGRES_USER='us'` — имя пользователя базы данных.
+- `POSTGRES_PASSWORD='user1'` — пароль пользователя базы данных.
+- `POSTGRES_DB='simbir'` — имя базы данных.
+- `POSTGRES_PORT=5432` — порт для подключения к базе данных.
+- `POSTGRES_HOST="127.0.0.1"` — IP-адрес для подключения к базе данных.
 
+- `SECRET_KEY="your-secret-key"` — секретный ключ для работы с токенами (не изменять).
+- `ALGORITHM="HS256"` — алгоритм шифрования (не изменять).
+- `access_token_expire_minutes=30` — время жизни токена в минутах (не изменять).
 
-timetable-microservice
-http://127.0.0.1:8083/timetable-microservice/docs#
+---
 
+## Запуск микросервисов
 
-document-microservice
-http://127.0.0.1:8084/document-microservice/docs#
+Для запуска микросервисов используется Docker Compose. Каждый микросервис настраивается аналогично, но ниже приведено описание конфигурации для `api-document-microservice`:
+
+- **Имя контейнера**: `DocumentMicroservice`.
+- **Сборка**: используется Dockerfile, расположенный в директории `./docker/Dockerfile`.
+- **Автоперезапуск**: контейнер всегда перезапускается в случае остановки.
+- **Команда запуска**: микросервис запускается с помощью `uvicorn`, прослушивая порт `8004` на всех интерфейсах (`0.0.0.0`).
+- **Переменные окружения**: загружаются из файла `.env`.
+- **Порты**: порт `8004` внутри контейнера пробрасывается на порт `8084` на хосте.
+
+---
+
+## Тестирование
+
+Для тестирования микросервисов можно использовать следующие эндпоинты:
+
+- **Account Microservice**: [http://127.0.0.1:8081/account-microservice/docs#](http://127.0.0.1:8081/account-microservice/docs#)
+- **Hospitals Microservice**: [http://127.0.0.1:8082/hospitals-microservice/docs#](http://127.0.0.1:8082/hospitals-microservice/docs#)
+- **Timetable Microservice**: [http://127.0.0.1:8083/timetable-microservice/docs#](http://127.0.0.1:8083/timetable-microservice/docs#)
+- **Document Microservice**: [http://127.0.0.1:8084/document-microservice/docs#](http://127.0.0.1:8084/document-microservice/docs#)
+
+---
+
+## Запуск проекта
+
+Для сборки и запуска проекта выполните команду:
+
+```bash
+make all

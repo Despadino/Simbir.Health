@@ -39,15 +39,3 @@ services:
     ports:
       - 8083:8003
 
-
-  api-document-microservice:
-    container_name: DocumentMicroservice
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile
-    restart: always
-    command: uvicorn app.api.DocumentMicroservice.main:app --host 0.0.0.0 --port 8004
-    env_file:
-      - .env
-    ports:
-      - 8084:8004
