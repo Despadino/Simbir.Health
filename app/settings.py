@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     log_level: LogLevel = LogLevel.INFO
 
 
-    POSTGRES_HOST: str = "simbir-health-db"
+    POSTGRES_HOST: str
     POSTGRES_PORT: int
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
@@ -42,16 +42,6 @@ class Settings(BaseSettings):
             path=f"/{self.POSTGRES_DB}",
         )
     
-    @property
-    def db_url_alembic(self) -> URL:
-        return URL.build(
-            scheme="postgresql+asyncpg",
-            host="127.0.0.1",
-            port=5434,
-            user=self.POSTGRES_USER,
-            password=self.POSTGRES_PASSWORD,
-            path=f"/{self.POSTGRES_DB}",
-        )
 
 
 

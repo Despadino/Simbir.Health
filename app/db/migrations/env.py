@@ -11,7 +11,7 @@ from app.db.models import load_all_models
 
 
 config = context.config
-config.set_main_option("sqlalchemy.url", f"{settings.db_url_alembic}?async_fallback=True")
+config.set_main_option("sqlalchemy.url", f"{settings.db_url}?async_fallback=True")
 load_all_models()
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
